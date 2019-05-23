@@ -1,0 +1,16 @@
+{
+	"description": "Zmkorean mini program",
+	"setting": {
+		"urlCheck": false,
+		"es6": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"appid": "wxb38c09f64afa683f",
+	"projectname": "zmkorean",
+	"miniprogramRoot": "dist/",
+	"condition": {}
+}
