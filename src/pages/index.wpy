@@ -1,10 +1,69 @@
 <style lang="less">
+.banners{
+  width: 100%;
+  height: 200px;
+  text-align:center
+}
+.slide-image{
+  width: 100%;
+  height: 100%；
+  border-radius:20px;
+}
+.banner-title {
+  color: #fff;
+  position: absolute;
+  width: 100%;
+  padding-left: 16px;
+  padding-right: 16px;
+  bottom: 30px;
+  font-size: 16px;
+  left: 0;
+}
+.page__bd{
+  margin-bottom:5px;
+  color:green;
+}
 </style>
 
 <template>
-<view class="page__bd">
+<view class="page">
+
+  <swiper indicator-dots="true" class="banners" indicator-color="white" indicator-active-color="purple" autoplay="true" interval="5000" duration="1000">
+    <block wx:for="{{imgUrls}}" wx:key="*this">
+      <swiper-item>
+        <image src="{{item}}" mode="scaleToFill" class="slide-image" />
+        <text class="banner-title">美丽的新世界</text>
+      </swiper-item>
+    </block>
+  </swiper>
+
+    <view class="weui-search-bar">
+        <view class="weui-search-bar__form">
+            <view class="weui-search-bar__box">
+                <icon class="weui-icon-search_in-box" type="search" size="14"/>
+                <input type="text" class="weui-search-bar__input" placeholder="搜索" value="" focus="" bindinput="inputTyping"/>
+                <view class="weui-icon-clear"  bindtap="clearInput">
+                    <icon type="clear" size="14"/>
+                </view>
+            </view>
+            <label class="weui-search-bar__label" hidden="" bindtap="showInput">
+                <icon class="weui-icon-search" type="search" size="14"/>
+                <view class="weui-search-bar__text">搜索</view>
+            </label>
+        </view>
+    </view>
+
+      <view class="weui-grids">
+          <block wx:for="{{grids}}" wx:key="*this">
+              <navigator url="" class="weui-grid" hover-class="weui-grid_active">
+                  <image class="weui-grid__icon" src="../images/{{ item.src }}.png" />
+                  <view class="weui-grid__label">{{ item.desc }}</view>
+              </navigator>
+          </block>
+      </view>
+
   <view class="weui-panel weui-panel_access">
-    <view class="weui-panel__hd">最新新闻</view>
+    <view class="weui-panel__hd">最新资讯</view>
     <view class="weui-panel__bd">
       <repeat for="{{ topics }}" key="id" index="index" item="topic">
         <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
@@ -19,6 +78,14 @@
       </repeat>
     </view>
   </view>
+
+  <view class="weui-footer">
+      <view class="weui-footer__links">
+          <navigator url="" class="weui-footer__link">周末韩语 逐鹿游学</navigator>
+      </view>
+      <view class="weui-footer__text">Copyright © 2008-2016 weui.io</view>
+  </view>
+
 </view>
 </template>
 
@@ -43,6 +110,21 @@ export default class Index extends wepy.page {
       id: 4,
       title: 'demo4',
       body: 'zmkorean 测试内容4'
+    }],
+    imgUrls: [
+      'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+      'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
+      'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
+    ],
+    grids: [{
+      src: 'icons8-beach-64',
+      desc: '沙滩'
+    }, {
+      src: 'icons8-summer-64',
+      desc: '夏日'
+    }, {
+      src: 'icons8-airport-64',
+      desc: '路线'
     }]
   }
 }

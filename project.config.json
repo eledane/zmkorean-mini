@@ -12,5 +12,7 @@
 	"appid": "wxb38c09f64afa683f",
 	"projectname": "zmkorean",
 	"miniprogramRoot": "dist/",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {}
 }
