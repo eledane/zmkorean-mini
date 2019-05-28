@@ -1,9 +1,156 @@
 <style>
+page,
+.page,
+.page__bd{
+    height: 100%;
+}
+.page__bd{
+    padding-bottom: 0;
+}
+.weui-tab__content{
+    padding-top: 30px;
+    text-align: center;
+}
+
+/* top user section */
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+/* read log style*/
+.log-list {
+  display: flex;
+  flex-direction: column;
+  padding: 16rpx 0;
+  margin-top: -30px;
+}
+
+.log-items {
+  margin-top: 20rpx;
+  text-align: left;
+}
+
+.log-text {
+  margin: 20rpx 0rpx 32rpx 10rpx;
+  font-size: 30rpx;
+  color: #757575;
+  word-wrap:break-word;
+ word-break:break-all;
+}
 </style>
 
 <template>
   <view class="container">
-    my container
+    <view class="userinfo">
+      <image class="userinfo-avatar" src="{{ userInfo.avatarUrl }}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{ userInfo.nickName }}</text>
+    </view>
+  </view>
+
+  <view class="page">
+    <view class="page__bd" style="margin-top: 10%">
+      <view class="weui-tab">
+        <view class="weui-navbar">
+          <block wx:for="{{tabs}}" wx:key="*this">
+            <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+              <view class="weui-navbar__title">{{item}}</view>
+            </view>
+          </block>
+          <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        </view>
+        <view class="weui-tab__panel">
+          <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+
+            <view class="log-list" wx:if="{{readLogs.length > 0}}">
+              <block wx:key="id" wx:for="{{readLogs}}">
+                <navigator url="../project/project?id={{item[0]}}">
+                  <view class="log-items">
+                    <text class="log-text">{{index + 1}}. {{item[1]}}</text>
+                  </view>
+                </navigator>
+              </block>
+            </view>
+
+            <view class="log-list" wx:else>
+              <view class="log-items">
+                <text class="log-text">暂无浏览记录！</text>
+              </view>
+            </view>
+
+          </view>
+          <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+               <view class="log-list" wx:if="{{myCommentsList.length > 0}}">
+              <block wx:key="id" wx:for="{{myCommentsList}}" wx:for-item="mycom">
+                <navigator url="../project/project?id={{mycom.post_id}}">
+                  <view class="log-items">
+                    <text class="log-text">{{index + 1}}. {{mycom.summary}}</text>
+                  </view>
+                </navigator>
+              </block>
+            </view>
+
+            <view class="log-list" wx:else>
+              <view class="log-items">
+                <text class="log-text">暂无订单记录！</text>
+              </view>
+            </view>
+
+          </view>
+
+          <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+
+            <view class="log-list" wx:if="{{collection}}" >
+              <block wx:key="id" wx:for="{{collection}}">
+                <navigator url="../project/project?id={{item.id}}">
+                  <view class="log-items">
+                    <text class="log-text">{{index + 1}}. {{item.title}}</text>
+                  </view>
+                </navigator>
+              </block>
+            </view>
+
+            <view class="log-list" wx:else>
+              <view class="log-items">
+                <text class="log-text">暂无收藏记录！</text>
+              </view>
+            </view>
+
+          </view>
+          <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
+
+     <view class="log-list" wx:if="{{allCommentsList.length > 0}}">
+              <block wx:key="id" wx:for="{{allCommentsList}}" wx:for-item="allcom">
+                <navigator url="../project/project?id={{allcom.post_id}}">
+                  <view class="log-items">
+                    <text class="log-text">{{index + 1}}. {{allcom.summary}}</text>
+                  </view>
+                </navigator>
+              </block>
+            </view>
+
+            <view class="log-list" wx:else>
+              <view class="log-items">
+                <text class="log-text">暂无最新评论！</text>
+              </view>
+            </view>
+
+          </view>
+        </view>
+      </view>
+    </view>
   </view>
 </template>
 
@@ -11,5 +158,37 @@
 import wepy from 'wepy'
 
 export default class User extends wepy.page {
+  data = {
+    tabs: ['浏览记录', '我的订单', '我的收藏', '我的评论'],
+    activeIndex: 0,
+    sliderOffset: 0,
+    sliderLeft: 0,
+    session: '',
+    readLogs: '',
+    myCommentsList: [],
+    allCommentsList: [
+    {'summary': 'this is a demo comment'},
+    {'summary': 'this is the second demo comment'}
+    ],
+    userInfo: {
+      'avatarUrl': 'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIowbz5xxVOJUPfpicpeTEUSqSRaPibKKwRJE2N5tibZJxN9gHCo8oNWMKHcGZaGynRbePibnpIjnSZbQ/132',
+      'city': '',
+      'country': 'France',
+      'gender': 1,
+      'language': 'zh_CN',
+      'nickName': 'Elyzium',
+      'province': 'Amiens'
+    },
+    collection: [
+      {'title': 'this is a demo collection1'},
+      {'title': 'this is the second demo collection2'}
+    ]
+  };
+  methods = {
+    async tabClick (e) {
+      this.sliderOffset = e.currentTarget.offsetLeft
+      this.activeIndex = e.currentTarget.id
+    }
+  }
 }
 </script>

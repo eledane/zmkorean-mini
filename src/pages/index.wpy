@@ -63,12 +63,12 @@
       </view>
 
   <view class="weui-panel weui-panel_access">
-    <view class="weui-panel__hd">最新资讯</view>
+    <view class="weui-panel__hd">攻略资讯</view>
     <view class="weui-panel__bd">
       <repeat for="{{ topics }}" key="id" index="index" item="topic">
         <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
           <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
-            <image class="weui-media-box__thumb" src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIowbz5xxVOJUPfpicpeTEUSqSRaPibKKwRJE2N5tibZJxN9gHCo8oNWMKHcGZaGynRbePibnpIjnSZbQ/132" />
+            <image class="weui-media-box__thumb" src="{{ topic.img }}" style="border-radius: 5px" />
           </view>
           <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
             <view class="weui-media-box__title">{{ topic.title }}</view>
@@ -83,7 +83,7 @@
       <view class="weui-footer__links">
           <navigator url="" class="weui-footer__link">周末韩语 逐鹿游学</navigator>
       </view>
-      <view class="weui-footer__text">Copyright © 2008-2016 weui.io</view>
+      <view class="weui-footer__text">Copyright © 2008-2016 zmkorean</view>
   </view>
 
 </view>
@@ -96,20 +96,24 @@ export default class Index extends wepy.page {
   data = {
     topics: [{
       id: 1,
-      title: 'demo1',
-      body: 'zmkorean 测试内容1'
+      img: 'http://mini.verhole.com/wp-content/uploads/2018/02/20171214035413307-150x150.jpg',
+      title: '<向往的生活> 回归！',
+      body: '这边超好吃的秘境又要火了'
     }, {
       id: 2,
-      title: 'demo2',
-      body: 'zmkorean 测试内容2'
+      img: 'http://mini.verhole.com/wp-content/uploads/2018/02/20171214051038712-150x150.jpg',
+      title: '超性价比的隐秘酒店',
+      body: '奇艺博物馆'
     }, {
       id: 3,
-      title: 'demo3',
-      body: 'zmkorean 测试内容3'
+      img: 'http://mini.verhole.com/wp-content/uploads/2018/02/20171214053557412-150x150.jpg',
+      title: '尽享田园乐趣',
+      body: '直飞世界级景观'
     }, {
       id: 4,
-      title: 'demo4',
-      body: 'zmkorean 测试内容4'
+      img: 'http://mini.verhole.com/wp-content/uploads/2018/02/20171214051038712-150x150.jpg',
+      title: '奢侈品帝国',
+      body: '顶级酒店宝格丽的生活方式'
     }],
     imgUrls: [
       'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
@@ -118,14 +122,29 @@ export default class Index extends wepy.page {
     ],
     grids: [{
       src: 'icons8-beach-64',
-      desc: '沙滩'
+      desc: '欢乐假期'
     }, {
       src: 'icons8-summer-64',
-      desc: '夏日'
+      desc: '暑期学娱'
     }, {
       src: 'icons8-airport-64',
-      desc: '路线'
-    }]
+      desc: '旅学路线'
+    }],
+    list: [
+      {
+        'background': 'http://mini.verhole.com/wp-content/uploads/2018/02/20180111115917524.jpg',
+        'desc': 'Rural Reconstruction',
+        'name': '乡建与田园综合体'},
+      {
+        'background': 'http://mini.verhole.com/wp-content/uploads/2018/02/20180111115917524.jpg',
+        'desc': 'Rural Reconstruction',
+        'name': '乡建与田园综合体'},
+      {
+        'background': 'http://mini.verhole.com/wp-content/uploads/2018/02/20180111115917524.jpg',
+        'desc': 'Rural Reconstruction',
+        'name': '乡建与田园综合体'
+      }
+    ]
   }
 }
 </script>
